@@ -9,7 +9,7 @@ class UserDataField extends StatelessWidget {
 
   const UserDataField({
     super.key, 
-    this.controller, 
+    required this.controller, 
     required this.hintText, 
     required this.obscureText
   });
@@ -23,10 +23,10 @@ class UserDataField extends StatelessWidget {
         obscureText: obscureText, 
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.brown)
+            borderSide: BorderSide(color: Colors.transparent)
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black) 
+            borderSide: BorderSide(color: Colors.white) 
           ),
           fillColor: Colors.brown[200],
           filled: true,
