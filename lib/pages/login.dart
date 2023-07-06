@@ -13,7 +13,7 @@ class Login extends StatelessWidget {
   Login({super.key});
 
   void signUserIn(){
-    print("Test");
+    // launch sign in page
   }
 
   @override

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class UserDataField extends StatelessWidget {
-  final controller;
+  final dynamic controller;
   final String hintText;
   final bool obscureText;
 

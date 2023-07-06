@@ -29,6 +29,13 @@
             {
               "client_id": "462198155468-2dga391iu6tu6i188qbuh67ocl0jo8vc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "462198155468-34ed9fn7hov9sg7i92bb5uo0uem4dgcm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bubbleTeaApp"
+              }
             }
           ]
         }
