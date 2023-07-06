@@ -4,6 +4,7 @@ import 'package:bubble_tea_app/components/continue_divider.dart';
 import 'package:bubble_tea_app/components/data_field.dart';
 import 'package:bubble_tea_app/components/sign_in_button.dart';
 import 'package:bubble_tea_app/components/square_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -12,8 +13,11 @@ class Login extends StatelessWidget {
 
   Login({super.key});
 
-  void signUserIn(){
-    // launch sign in page
+  void signUserIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: usernameController.text, 
+      password: passwordController.text,
+      );
   }
 
   @override
