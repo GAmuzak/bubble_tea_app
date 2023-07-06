@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:bubble_tea_app/components/continue_divider.dart';
 import 'package:bubble_tea_app/components/data_field.dart';
@@ -7,17 +7,50 @@ import 'package:bubble_tea_app/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+class Login extends StatefulWidget {
 
   Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final usernameController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
   void signUserIn() async{
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: usernameController.text, 
-      password: passwordController.text,
+    showDialog(context: context, builder: (context){
+      return Center(
+        child: CircularProgressIndicator(),
       );
+    });
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usernameController.text, 
+        password: passwordController.text,
+      );
+      Navigator.pop(context);
+
+    } on FirebaseAuthException catch (e){
+      Navigator.pop(context);
+
+      if(e.code == 'user-not-found'){
+        handleError("User Not Found");
+      }
+      else if(e.code == 'wrong-password'){
+        handleError("Incorrect Password");
+      }
+    }
+  }
+
+  void handleError(String message){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text(message),
+      );
+    });
   }
 
   @override
