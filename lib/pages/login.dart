@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                 // User Name Textfield
                 UserDataField(
                   controller: usernameController,
-                  hintText: "Username/Email Address/Phone Number",
+                  hintText: "Email Address",
                   obscureText: false,
                 ),
                 SizedBox(height:20),
@@ -122,6 +122,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height:40),
                 SignInButton(
                   onTap: signUserIn,
+                  buttonData: "Sign in",
                 ),
                 SizedBox(height:40),
                 // Google / Apple Sign In

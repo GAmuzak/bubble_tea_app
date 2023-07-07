@@ -122,6 +122,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(height:40),
                 SignInButton(
                   onTap: signUserIn,
+                  buttonData: "Sign Up",
                 ),
                 SizedBox(height:40),
                 // Google / Apple Sign In
