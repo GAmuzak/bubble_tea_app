@@ -7,42 +7,53 @@ import 'package:bubble_tea_app/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
+class Register extends StatefulWidget {
 
   final Function()? onTap;
 
-  Login({super.key, required this.onTap});
+  Register({super.key, required this.onTap});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   final usernameController = TextEditingController();
 
   final passwordController = TextEditingController();
 
+  final confirmPasswordController = TextEditingController();
+
   void signUserIn() async{
     showDialog(context: context, builder: (context){
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+
+        ),
       );
     });
-    try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: usernameController.text, 
-        password: passwordController.text,
-      );
+    if(passwordController.text != confirmPasswordController.text){
       Navigator.pop(context);
+      handleError("Passwords do not match!");
+    }
+    else{
+      try{
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usernameController.text, 
+          password: passwordController.text,
+        );
+      
+        Navigator.pop(context);
 
-    } on FirebaseAuthException catch (e){
-      Navigator.pop(context);
+      } on FirebaseAuthException catch (e){
+        Navigator.pop(context);
 
-      if(e.code == 'user-not-found'){
-        handleError("User Not Found");
-      }
-      else if(e.code == 'wrong-password'){
-        handleError("Incorrect Password");
+        if(e.code == 'user-not-found'){
+          handleError("User Not Found");
+        }
+        else if(e.code == 'wrong-password'){
+          handleError("Incorrect Password");
+        }
       }
     }
   }
@@ -75,11 +86,11 @@ class _LoginState extends State<Login> {
               children: [
                 // LOGO
                 SizedBox(height:20),
-                Image.asset("images/bubble-tea-main.png", height: 160,),
+                Image.asset("images/bubble-tea-main.png", height: 100,),
                 // Welcome Back Text
-                SizedBox(height:40),
+                SizedBox(height:20),
                 Text(
-                  "Welcome Back!",
+                  "Let's create a new account!",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -90,34 +101,23 @@ class _LoginState extends State<Login> {
                 // User Name Textfield
                 UserDataField(
                   controller: usernameController,
-                  hintText: "Username/Email Address/Phone Number",
+                  hintText: "Enter Your Email Address",
                   obscureText: false,
                 ),
                 SizedBox(height:20),
                 // Password Textfield
                 UserDataField(
                   controller: passwordController,
-                  hintText: "Password",
+                  hintText: "Enter New Password",
                   obscureText: true,
                 ),
                 SizedBox(height:20),
-                // Forgot Password?
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          color: Colors.brown[500], 
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 2,
-                        ),
-                      ),
-                    ],
-                  ),
+                UserDataField(
+                  controller: confirmPasswordController,
+                  hintText: "Confirm Password",
+                  obscureText: true,
                 ),
+                SizedBox(height:20),
                 // Sign in Button
                 SizedBox(height:40),
                 SignInButton(
@@ -140,12 +140,12 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Not a member?"),
+                    Text("Already a member?"),
                     SizedBox(width: 5,),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        "Register Now",
+                        "Login Now",
                         style: TextStyle(color: Colors.blue[700], fontWeight: FontWeight.bold),
                       ),
                     )

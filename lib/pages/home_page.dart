@@ -12,11 +12,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = FirebaseAuth.instance.currentUser?.email.toString();
     return GestureDetector(
       onTap: signUserOut,
       child: Scaffold(
         body: Center(
-          child: Text("Signed In; Click anywhere to sign out"),
+          child: Text("$user Signed In; \nClick anywhere to sign out"),
         ),
       ),
     );
