@@ -7,6 +7,8 @@ import 'package:bubble_tea_app/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../components/switch_page.dart';
+
 class Register extends StatefulWidget {
 
   final Function()? onTap;
@@ -138,19 +140,10 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height:20),
                 // Register Now
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Already a member?"),
-                    SizedBox(width: 5,),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: Text(
-                        "Login Now",
-                        style: TextStyle(color: Colors.blue[700], fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
+                SwitchPage(
+                  onTap: widget.onTap,
+                  normalText: "Already a Member?",  
+                  linkText: "Login Now",
                 ),
               ],
             ),
