@@ -19,9 +19,29 @@ class _ResetPasswordState extends State<ResetPassword> {
     try{
       await FirebaseAuth.instance.
       sendPasswordResetEmail(email: usernameController.text.trim());
+      dialogueBox("A reset link has been sent to your mail!");
     } on FirebaseAuthException catch (e){
-      print(e);
+      dialogueBox(e.toString());
     }
+  }
+
+  Future<dynamic> dialogueBox(String content) {
+    return showDialog(
+      context: context, 
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Colors.brown[800],
+          content: Text(
+            content,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          alignment: Alignment.center,
+        );
+      }
+    );
   }
 
   @override
@@ -42,7 +62,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.mail, size: 200),
+          Icon(Icons.mail, size: 150),
           SizedBox(height: 40),
           Text("Enter your email and we will send you a password reset link"),
           SizedBox(height: 20),
@@ -52,9 +72,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             obscureText: false,
           ),
           SizedBox(height: 20),
-          MaterialButton(onPressed: (){
-              //TODO: Send mail
-            },
+          MaterialButton(onPressed: passwordReset,
             color: Colors.brown,
             child: Text("Send Reset Link"),
           ),
