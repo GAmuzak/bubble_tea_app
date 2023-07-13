@@ -4,9 +4,12 @@ import 'package:bubble_tea_app/components/continue_divider.dart';
 import 'package:bubble_tea_app/components/data_field.dart';
 import 'package:bubble_tea_app/components/sign_in_button.dart';
 import 'package:bubble_tea_app/components/square_tile.dart';
+import 'package:bubble_tea_app/pages/reset_password.dart';
+import 'package:bubble_tea_app/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../components/forgot_password.dart';
 import '../components/switch_page.dart';
 
 class Login extends StatefulWidget {
@@ -104,21 +107,16 @@ class _LoginState extends State<Login> {
                 ),
                 SizedBox(height:20),
                 // Forgot Password?
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          color: Colors.brown[500], 
-                          decoration: TextDecoration.underline,
-                          decorationThickness: 2,
-                        ),
-                      ),
-                    ],
-                  ),
+                ForgotPassword(
+                  onTap: () => {
+                    Navigator.push(context, 
+                    MaterialPageRoute(
+                      builder: (context){
+                          return ResetPassword();
+                        } 
+                      )
+                    )
+                  },
                 ),
                 // Sign in Button
                 SizedBox(height:40),
@@ -133,9 +131,15 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareTile(imagePath: "images/google-logo-colored.png"),
+                    SquareTile(
+                      imagePath: "images/google-logo-colored.png",
+                      onTap: () => AuthService().signInWithGoogle(),  
+                    ),
                     SizedBox(width: 30,),
-                    SquareTile(imagePath: "images/apple-logo.png"),
+                    SquareTile(
+                      imagePath: "images/apple-logo.png",
+                      onTap: () => {},
+                    ),
                   ],
                 ),
                 SizedBox(height:20),
@@ -153,4 +157,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
 

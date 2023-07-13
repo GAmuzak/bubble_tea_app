@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/switch_page.dart';
+import '../services/auth_service.dart';
 
 class Register extends StatefulWidget {
 
@@ -133,9 +134,15 @@ class _RegisterState extends State<Register> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SquareTile(imagePath: "images/google-logo-colored.png"),
+                    SquareTile(
+                      imagePath: "images/google-logo-colored.png",
+                      onTap: () => AuthService().signInWithGoogle(),  
+                    ),
                     SizedBox(width: 30,),
-                    SquareTile(imagePath: "images/apple-logo.png"),
+                    SquareTile(
+                      imagePath: "images/apple-logo.png",
+                      onTap: () => {},
+                    ),
                   ],
                 ),
                 SizedBox(height:20),
